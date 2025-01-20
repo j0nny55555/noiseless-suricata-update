@@ -1,0 +1,72 @@
+# Configuration with disable filters.
+# - Overrided by --disable-conf
+# - Default: /etc/suricata/disable.conf
+disable-conf: /root/suricata/disable.conf
+
+# Configuration with enable filters.
+# - Overrided by --enable-conf
+# - Default: /etc/suricata/enable.conf
+enable-conf: /root/suricata/enable.conf
+
+# Configuration with drop filters.
+# - Overrided by --drop-conf
+# - Default: /etc/suricata/drop.conf
+drop-conf: /root/suricata/drop.conf
+
+# Configuration with modify filters.
+# - Overrided by --modify-conf
+# - Default: /etc/suricata/modify.conf
+modify-conf: /root/suricata/modify.conf
+
+# List of files to ignore. Overrided by the --ignore command line option.
+ignore:
+  - "*deleted.rules"
+
+# Override the user-agent string.
+#user-agent: "Suricata-Update"
+
+# Provide an alternate command to the default test command.
+#
+# The following environment variables can be used.
+# SURICATA_PATH - The path to the discovered suricata program.
+# OUTPUT_DIR - The directory the rules are written to.
+# OUTPUT_FILENAME - The name of the rule file. Will be empty if the rules
+#                   were not merged.
+#test-command: ${SURICATA_PATH} -T -S ${OUTPUT_FILENAME} -l /tmp
+
+# Provide a command to reload the Suricata rules.
+# May be overrided by the --reload-command command line option.
+# See the documentation of --reload-command for the different options
+# to reload Suricata rules.
+#reload-command: sudo systemctl reload suricata
+
+# Remote rule sources. Simply a list of URLs.
+sources:
+  # Emerging Threats Open with the Suricata version dynamically replaced.
+  #- https://rules.emergingthreats.net/open/suricata-%(__version__)s/emerging.rules.tar.gz
+  # The SSL blacklist, which is just a standalone rule file.
+  #- https://sslbl.abuse.ch/blacklist/sslblacklist.rules
+  - "https://www.snort.org/rules/snortrules-snapshot-29111.tar.gz?oinkcode=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  #- https://urlhaus.abuse.ch/downloads/suricata-ids
+  #- https://sslbl.abuse.ch/blacklist/sslblacklist_tls_cert.tar.gz
+  #- https://sslbl.abuse.ch/blacklist/sslipblacklist.tar.gz
+  #- https://sslbl.abuse.ch/blacklist/ja3_fingerprints.tar.gz
+  # 404 - https://feodotracker.abuse.ch/blocklist/abuse.ch.feodotracker.rules
+  # 404 - https://sslbl.abuse.ch/blacklist/abuse.ch.sslblacklist.rules
+  # 404 - https://sslbl.abuse.ch/blacklist/abuse.ch.sslipblacklist.rules
+  # 404 - https://threatfox.abuse.ch/abuse.ch.threatfox.rules
+  # 404 - https://urlhaus.abuse.ch/abuse.ch.urlhaus.rules
+  #- https://rulesets.opnsense.org/suricata/
+  #- https://rules.emergingthreats.net/open/suricata-7.0/emerging.rules.tar.gz
+
+# A list of local rule sources. Each entry can be a rule file, a
+# directory or a wild card specification.
+local:
+  - "/root/suricata/homelabpass.rules" # Ignore network segments
+  - "/root/suricata/homelabids.rules" # Homebrewed IDS rules
+  # A directory of rules.
+  #- /etc/suricata/rules
+  # A single rule file.
+  #- /etc/suricata/rules/app-layer-events.rules
+  # A wildcard.
+  #- /etc/suricata/rules/*.rules
